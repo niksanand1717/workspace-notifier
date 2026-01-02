@@ -1,0 +1,178 @@
+# @workspace-observer/node
+
+Error capturing SDK for Node.js that sends notifications to Google Chat via webhook cards.
+
+## Features
+
+- 🚨 **Automatic error capture** - Catch and report exceptions with stack traces
+- 🔗 **Framework integrations** - Built-in support for Express, Fastify, and NestJS
+- 🏷️ **Context enrichment** - Add tags, extra data, and request info to events
+- 🛡️ **Privacy-aware** - Automatic redaction of sensitive headers
+- ⚡ **Rate limiting** - Prevent webhook flooding
+- 🎯 **TypeScript-first** - Full type safety and IntelliSense support
+
+## Installation
+
+```bash
+npm install @workspace-observer/node
+```
+
+## Quick Start
+
+```typescript
+import { WorkspaceSDK } from "@workspace-observer/node";
+
+// Initialize the SDK
+WorkspaceSDK.init({
+  webhookUrl: "https://chat.googleapis.com/v1/spaces/...",
+  service: "my-api",
+  environment: "production",
+  release: "1.0.0",
+});
+
+// Capture an exception
+try {
+  throw new Error("Something went wrong!");
+} catch (error) {
+  WorkspaceSDK.captureException(error);
+}
+```
+
+## Configuration Options
+
+```typescript
+interface SDKOptions {
+  /** Google Chat webhook URL (required) */
+  webhookUrl: string;
+  
+  /** Service/application name */
+  service?: string;
+  
+  /** Environment (e.g., 'production', 'staging') */
+  environment?: string;
+  
+  /** Application version/release */
+  release?: string;
+  
+  /** Enable debug logging to console */
+  debug?: boolean;
+  
+  /** Maximum events per minute (default: 30) */
+  maxEventsPerMinute?: number;
+  
+  /** Transform or filter events before sending */
+  beforeSend?: (event: WorkspaceEvent) => WorkspaceEvent | null;
+}
+```
+
+## Enriching Events with Context
+
+Use `withScope` to add contextual information to captured events:
+
+```typescript
+WorkspaceSDK.withScope((scope) => {
+  scope.setTag("userId", "12345");
+  scope.setTag("feature", "checkout");
+  scope.setExtra("cart", { items: 3, total: 99.99 });
+  
+  WorkspaceSDK.captureException(error);
+});
+```
+
+## Framework Integrations
+
+### Express
+
+```typescript
+import express from "express";
+import { WorkspaceSDK, workspaceExpress } from "@workspace-observer/node";
+
+const app = express();
+
+WorkspaceSDK.init({ webhookUrl: "..." });
+
+// Your routes
+app.get("/", (req, res) => {
+  res.send("Hello!");
+});
+
+// Error handler - must be after all routes
+app.use(workspaceExpress());
+
+app.listen(3000);
+```
+
+### Fastify
+
+```typescript
+import Fastify from "fastify";
+import { WorkspaceSDK, workspaceFastify } from "@workspace-observer/node";
+
+const fastify = Fastify();
+
+WorkspaceSDK.init({ webhookUrl: "..." });
+
+// Register the plugin
+await fastify.register(workspaceFastify);
+
+fastify.listen({ port: 3000 });
+```
+
+### NestJS
+
+```typescript
+import { Module, APP_FILTER } from "@nestjs/core";
+import { WorkspaceSDK, WorkspaceExceptionFilter } from "@workspace-observer/node";
+
+WorkspaceSDK.init({ webhookUrl: "..." });
+
+@Module({
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: WorkspaceExceptionFilter,
+    },
+  ],
+})
+export class AppModule {}
+```
+
+## Filtering Events
+
+Use `beforeSend` to filter or modify events before they're sent:
+
+```typescript
+WorkspaceSDK.init({
+  webhookUrl: "...",
+  beforeSend: (event) => {
+    // Don't send 404 errors
+    if (event.message.includes("Not Found")) {
+      return null;
+    }
+    
+    // Add custom data
+    event.extra = {
+      ...event.extra,
+      serverVersion: process.env.VERSION,
+    };
+    
+    return event;
+  },
+});
+```
+
+## Types
+
+The package exports the following types for TypeScript users:
+
+```typescript
+import type { 
+  WorkspaceEvent, 
+  SDKOptions, 
+  Severity 
+} from "@workspace-observer/node";
+```
+
+## License
+
+ISC

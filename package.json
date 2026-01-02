@@ -1,0 +1,77 @@
+{
+  "name": "@workspace-observer/node",
+  "version": "0.1.0",
+  "description": "Error capturing SDK for Node.js that sends notifications to Google Chat via webhook cards",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "node --import tsx --test 'src/**/*.test.ts'",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "error-tracking",
+    "google-chat",
+    "workspace",
+    "webhook",
+    "monitoring",
+    "express",
+    "fastify",
+    "nestjs",
+    "observability"
+  ],
+  "author": "Niks",
+  "license": "ISC",
+  "homepage": "https://github.com/niks-personal/workspace-observer-node#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niks-personal/workspace-observer-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niks-personal/workspace-observer-node/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^11.1.11",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.0.0",
+    "fastify": "^5.6.2",
+    "reflect-metadata": "^0.2.2",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "@nestjs/common": ">=9.0.0",
+    "express": ">=4.0.0",
+    "fastify": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "express": {
+      "optional": true
+    },
+    "fastify": {
+      "optional": true
+    },
+    "@nestjs/common": {
+      "optional": true
+    }
+  }
+}
