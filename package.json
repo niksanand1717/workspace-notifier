@@ -1,6 +1,6 @@
 {
   "name": "@workspace-observer/node",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Error capturing SDK for Node.js that sends notifications to Google Chat via webhook cards",
   "type": "module",
   "main": "dist/index.cjs",
@@ -22,28 +22,52 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "node --import tsx --test 'src/**/*.test.ts'",
+    "publish-patch": "npm version patch && npm publish",
+    "publish-minor": "npm version minor && npm publish",
+    "publish-major": "npm version major && npm publish",
     "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [
     "error-tracking",
+    "error-handler",
+    "exception",
     "google-chat",
+    "google-workspace",
     "workspace",
     "webhook",
     "monitoring",
+    "logging",
+    "alerting",
+    "notifications",
     "express",
     "fastify",
     "nestjs",
-    "observability"
+    "nodejs",
+    "typescript",
+    "observability",
+    "sentry-alternative",
+    "logrocket-alternative",
+    "datadog-alternative",
+    "newrelic-alternative",
+    "rollbar-alternative",
+    "bugsnag-alternative",
+    "honeybadger-alternative",
+    "airbrake-alternative",
+    "error-reporting",
+    "sentry",
+    "rollbar",
+    "bugsnag",
+    "datadog"
   ],
   "author": "Niks",
   "license": "MIT",
-  "homepage": "https://github.com/niks-personal/workspace-observer-node#readme",
+  "homepage": "https://github.com/niksanand1717/workspace-notifier",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/niks-personal/workspace-observer-node.git"
+    "url": "git+https://github.com/niksanand1717/workspace-notifier.git"
   },
   "bugs": {
-    "url": "https://github.com/niks-personal/workspace-observer-node/issues"
+    "url": "https://github.com/niksanand1717/workspace-notifier/issues"
   },
   "engines": {
     "node": ">=18"
