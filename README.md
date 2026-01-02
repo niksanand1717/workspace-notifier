@@ -173,6 +173,10 @@ import type {
 } from "@workspace-observer/node";
 ```
 
+## Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
 ## License
 
-ISC
+MIT

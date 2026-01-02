@@ -36,7 +36,7 @@
     "observability"
   ],
   "author": "Niks",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/niks-personal/workspace-observer-node#readme",
   "repository": {
     "type": "git",
