@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.8] - 2026-01-03
 
 ### Added
+- Compact request visualization: IP, Query, and Params are now grouped to prevent card clutter.
+- HTML formatting for stack traces (using `<code>` tags) for better readability in Google Chat.
 - Support for manual request context in `captureException(error, request)`.
 - Request data includes `url`, `method`, `query`, `params`, and `headers`.
 - Enhanced `normalizeError` to embed request context directly into the event.
