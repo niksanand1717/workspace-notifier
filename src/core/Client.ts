@@ -36,7 +36,11 @@ export class WorkspaceSDK {
   /**
    * Capture and report an exception
    */
-  static captureException(error: unknown): void {
+  static captureException(error: {
+    name: string;
+    message: string;
+    stack?: string;
+  }): void {
     if (!this.isInitialized()) return;
 
     // Rate limiting check

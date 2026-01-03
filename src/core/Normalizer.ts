@@ -1,9 +1,11 @@
 import type { WorkspaceEvent } from "../types/event";
 import { trimStack } from "../utils/stacktrace";
 
-export function normalizeError(error: unknown): WorkspaceEvent | null {
-  if (!(error instanceof Error)) return null;
-
+export function normalizeError(error: {
+  name: string;
+  message: string;
+  stack?: string;
+}): WorkspaceEvent | null {
   const stack = trimStack(error.stack);
   return {
     id: crypto.randomUUID(),
