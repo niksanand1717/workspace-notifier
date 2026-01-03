@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" width="200" alt="@workspace-observer/node logo">
+</p>
+
 # @workspace-observer/node
 
 Error capturing SDK for Node.js that sends notifications to Google Chat via webhook cards.
