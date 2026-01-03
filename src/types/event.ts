@@ -1,10 +1,12 @@
-export type Severity = "fatal" | "error" | "warning" | "info";
+import type { Severity } from "./severity";
+export type { Severity };
 
 export interface WorkspaceEvent {
   id: string;
   timestamp: number;
   level: Severity;
   message: string;
+  fingerprint?: string;
 
   error?: {
     name: string;

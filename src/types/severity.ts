@@ -1,1 +1,1 @@
-export type Severity = "fatal" | "error" | "warning" | "info";
+export type Severity = "fatal" | "error" | "warning" | "info" | "latency";

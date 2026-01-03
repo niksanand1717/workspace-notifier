@@ -10,3 +10,4 @@ export { WorkspaceExceptionFilter } from "./integrations/nest";
 // Types
 export type { WorkspaceEvent, Severity } from "./types/event";
 export type { SDKOptions } from "./types/options";
+export type { ErrorCardData, LatencyCardData } from "./cards/types";

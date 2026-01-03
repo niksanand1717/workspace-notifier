@@ -9,12 +9,14 @@ export interface TransportResult {
   error?: Error;
 }
 
+import type { GoogleChatCardV2 } from "../types/google-chat";
+
 /**
  * Send a webhook payload with retry logic
  */
 export async function sendWebhook(
   webhookUrl: string,
-  payload: unknown,
+  payload: GoogleChatCardV2,
   debug = false
 ): Promise<TransportResult> {
   const data = JSON.stringify(payload);

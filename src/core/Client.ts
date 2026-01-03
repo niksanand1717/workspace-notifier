@@ -3,9 +3,11 @@ import { GLOBAL_HUB } from "./Hub";
 import type { SDKOptions } from "../types/options";
 import { sendWebhook } from "./Transport";
 import { buildErrorCard } from "../cards/ErrorCard";
+import { buildLatencyCard } from "../cards/LatencyCard";
 import { createRateLimiter } from "../utils/rateLimit";
 import { hashError } from "../utils/hash";
 import type { Scope } from "./Scope";
+import type { WorkspaceEvent } from "../types/event";
 
 const DEFAULT_MAX_EVENTS_PER_MINUTE = 30;
 
@@ -35,12 +37,7 @@ export class WorkspaceSDK {
    * Capture and report an exception
    */
   static captureException(error: unknown): void {
-    if (!this.options) {
-      console.warn(
-        "[@workspace-observer] SDK not initialized. Call WorkspaceSDK.init() first."
-      );
-      return;
-    }
+    if (!this.isInitialized()) return;
 
     // Rate limiting check
     if (!this.rateLimiter()) {
@@ -61,12 +58,38 @@ export class WorkspaceSDK {
       return;
     }
 
+    this.processAndSend(baseEvent);
+  }
+
+  /**
+   * Capture and report latency metrics
+   * @param data Metrics data including endpoint and duration
+   */
+  static captureLatency(data: { endpoint: string; durationMs: number; thresholdMs?: number }): void {
+    if (!this.isInitialized()) return;
+
+    if (!this.rateLimiter()) return;
+
+    const event: WorkspaceEvent = {
+      id: crypto.randomUUID(),
+      timestamp: Date.now(),
+      level: "latency",
+      message: `Latency alert for ${data.endpoint}: ${data.durationMs}ms`,
+      extra: {
+        ...data,
+      },
+    };
+
+    this.processAndSend(event);
+  }
+
+  private static processAndSend(baseEvent: WorkspaceEvent) {
     const scope = GLOBAL_HUB.getScope();
 
     // Add fingerprint for deduplication
     const fingerprint = hashError(baseEvent.message + (baseEvent.error?.name ?? ""));
 
-    const event = {
+    const event: WorkspaceEvent = {
       ...baseEvent,
       ...scope.serialize(),
       fingerprint,
@@ -75,7 +98,7 @@ export class WorkspaceSDK {
       ...(this.options.release && { release: this.options.release }),
     };
 
-    const processed = this.options.beforeSend?.(event) ?? event;
+    const processed = (this.options.beforeSend?.(event) ?? event) as WorkspaceEvent | null;
     if (!processed) {
       if (this.options.debug) {
         console.log("[@workspace-observer] Event dropped by beforeSend");
@@ -83,7 +106,10 @@ export class WorkspaceSDK {
       return;
     }
 
-    const card = buildErrorCard(processed);
+    // Choose card builder based on severity
+    const card = processed.level === "latency"
+      ? buildLatencyCard(processed)
+      : buildErrorCard(processed);
 
     // Fire and forget, handle errors gracefully
     sendWebhook(this.options.webhookUrl, card, this.options.debug).then(
@@ -109,6 +135,12 @@ export class WorkspaceSDK {
    * Check if the SDK has been initialized
    */
   static isInitialized(): boolean {
-    return !!this.options;
+    if (!this.options) {
+      console.warn(
+        "[@workspace-observer] SDK not initialized. Call WorkspaceSDK.init() first."
+      );
+      return false;
+    }
+    return true;
   }
 }

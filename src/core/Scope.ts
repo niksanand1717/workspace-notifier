@@ -1,3 +1,5 @@
+import type { ScopeData } from "../types/scope";
+
 export class Scope {
   private tags = new Map<string, string>();
   private extra = new Map<string, unknown>();
@@ -10,7 +12,7 @@ export class Scope {
     this.extra.set(key, value);
   }
 
-  serialize() {
+  serialize(): ScopeData {
     return {
       tags: Object.fromEntries(this.tags),
       extra: Object.fromEntries(this.extra),

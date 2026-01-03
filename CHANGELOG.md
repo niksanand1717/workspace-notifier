@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.6] - 2026-01-03
+
+### Fixed
+- Major type-safety refactor: replaced `any` with structured types across the SDK.
+- Exporting `Severity` correctly from `index.ts`.
+- Full compatibility with `exactOptionalPropertyTypes: true`.
+
+### Added
+- Comprehensive Google Chat CardsV2 type definitions in `src/types/google-chat.ts`.
+
+## [0.1.5] - 2026-01-03
+
+### Added
+- Dedicated `captureLatency(metrics)` API for performance monitoring.
+- Structured `CardBuilder` with `setHeader` and `addDecoratedText` methods.
+- Specialized latency alert cards with rich UI icons and metrics.
+
 ## [0.1.0] - 2026-01-02
 
 ### Added
