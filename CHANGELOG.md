@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.7] - 2026-01-03
+
+### Added
+- Support for manual request context in `captureException(error, request)`.
+- Request data includes `url`, `method`, `query`, `params`, and `headers`.
+- Enhanced `normalizeError` to embed request context directly into the event.
+
+### Fixed
+- Restored `unknown` error handling with robust type guarding.
+- Fixed `Normalizer` unit tests to align with the latest structured error processing.
+
 ## [0.1.6] - 2026-01-03
 
 ### Fixed

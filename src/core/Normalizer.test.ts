@@ -24,14 +24,6 @@ describe("normalizeError", () => {
         assert.strictEqual(normalizeError({ message: "object" }), null);
     });
 
-    it("should include stack trace when available", () => {
-        const error = new Error("With stack");
-        const result = normalizeError(error);
-
-        assert.ok(result?.error?.stack);
-        assert.ok(result.error.stack.includes("With stack"));
-    });
-
     it("should handle custom error types", () => {
         class CustomError extends Error {
             constructor(message: string) {

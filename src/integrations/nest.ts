@@ -30,28 +30,26 @@ export class WorkspaceExceptionFilter implements ExceptionFilter {
     GLOBAL_HUB.run(() => {
       const scope = GLOBAL_HUB.getScope();
 
-      if (request) {
-        // Enrich with request data
-        scope.setExtra("request", {
-          method: request.method,
-          url: request.originalUrl || request.url,
-          ip: request.ip || request.socket?.remoteAddress,
-          headers: redactHeaders(request.headers as Record<string, string>),
-          query: request.query,
-          body: request.body ? "[BODY PRESENT]" : undefined,
-        });
-
-        // Add useful tags
-        scope.setTag("http.method", request.method);
-        scope.setTag("http.url", request.originalUrl || request.url);
-      }
-
       // Add HTTP status if available
       if (exception instanceof HttpException) {
         scope.setTag("http.status", String(exception.getStatus()));
       }
 
-      WorkspaceSDK.captureException(exception);
+      if (request) {
+        scope.setTag("http.method", request.method);
+        scope.setTag("http.url", request.originalUrl || request.url);
+
+        WorkspaceSDK.captureException(exception, {
+          method: request.method,
+          url: request.originalUrl || request.url,
+          ip: (request.ip || request.socket?.remoteAddress) ?? undefined,
+          headers: redactHeaders(request.headers as Record<string, string>) ?? undefined,
+          query: (request.query as Record<string, any>) ?? undefined,
+          body: request.body ? "[BODY PRESENT]" : undefined,
+        });
+      } else {
+        WorkspaceSDK.captureException(exception);
+      }
     });
 
     // Re-throw to let NestJS handle the response

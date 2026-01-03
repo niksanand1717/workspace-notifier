@@ -36,11 +36,10 @@ export class WorkspaceSDK {
   /**
    * Capture and report an exception
    */
-  static captureException(error: {
-    name: string;
-    message: string;
-    stack?: string;
-  }): void {
+  static captureException(
+    error: unknown,
+    request?: WorkspaceEvent["request"]
+  ): void {
     if (!this.isInitialized()) return;
 
     // Rate limiting check
@@ -51,7 +50,7 @@ export class WorkspaceSDK {
       return;
     }
 
-    const baseEvent = normalizeError(error);
+    const baseEvent = normalizeError(error, request);
     if (!baseEvent) {
       if (this.options.debug) {
         console.warn(

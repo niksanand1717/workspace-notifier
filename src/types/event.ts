@@ -15,10 +15,13 @@ export interface WorkspaceEvent {
   };
 
   request?: {
-    method?: string;
-    url?: string;
-    ip?: string;
-    headers?: Record<string, string>;
+    method?: string | undefined;
+    url?: string | undefined;
+    ip?: string | undefined;
+    headers?: Record<string, string> | undefined;
+    query?: Record<string, any> | undefined;
+    params?: Record<string, any> | undefined;
+    body?: any | undefined;
   };
 
   tags?: Record<string, string>;

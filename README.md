@@ -5,6 +5,7 @@ Error capturing SDK for Node.js that sends notifications to Google Chat via webh
 ## Features
 
 - 🚨 **Automatic error capture** - Catch and report exceptions with stack traces
+- ⏱️ **Latency monitoring** - Track and alert on endpoint performance
 - 🔗 **Framework integrations** - Built-in support for Express, Fastify, and NestJS
 - 🏷️ **Context enrichment** - Add tags, extra data, and request info to events
 - 🛡️ **Privacy-aware** - Automatic redaction of sensitive headers
@@ -19,23 +20,32 @@ npm install @workspace-observer/node
 
 ## Quick Start
 
+### Error Capturing
 ```typescript
 import { WorkspaceSDK } from "@workspace-observer/node";
 
-// Initialize the SDK
 WorkspaceSDK.init({
   webhookUrl: "https://chat.googleapis.com/v1/spaces/...",
-  service: "my-api",
-  environment: "production",
-  release: "1.0.0",
 });
 
-// Capture an exception
+// Capture an error with optional request context
 try {
-  throw new Error("Something went wrong!");
+  throw new Error("API Timeout");
 } catch (error) {
-  WorkspaceSDK.captureException(error);
+  WorkspaceSDK.captureException(error, {
+    url: "/api/v1/data",
+    method: "POST"
+  });
 }
+```
+
+### Latency Monitoring
+```typescript
+WorkspaceSDK.captureLatency({
+  endpoint: "/api/v1/users",
+  durationMs: 450,
+  thresholdMs: 300 // Optional: shows threshold in the card
+});
 ```
 
 ## Configuration Options
