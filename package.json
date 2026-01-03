@@ -1,6 +1,6 @@
 {
   "name": "@workspace-observer/node",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Error capturing SDK for Node.js that sends notifications to Google Chat via webhook cards",
   "type": "module",
   "main": "dist/index.cjs",
