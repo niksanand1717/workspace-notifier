@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.2] - 2026-01-04
+
+### Added
+- **CI/CD**: Added GitHub Action for automated TSDoc documentation deployment to GitHub Pages on every push to main.
+
+## [0.8.1] - 2026-01-04
+
+### Added
+- **Documentation**: Performed a "Deep Sweep" of the codebase, adding practical `@example` tags to all public APIs.
+- **API**: Documented internal modules (Normalizer, Transport, Hub) and Card utility methods.
+
 ## [0.8.0] - 2026-01-04
 
 ### Added
