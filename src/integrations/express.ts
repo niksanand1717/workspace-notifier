@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { WorkspaceSDK } from "../core/Client";
+import { GChatNotifier } from "../core/Client";
 import { GLOBAL_HUB } from "../core/Hub";
 import { redactHeaders } from "../utils/redact";
 
@@ -9,15 +9,15 @@ import { redactHeaders } from "../utils/redact";
  * @example
  * ```typescript
  * import express from "express";
- * import { workspaceExpress } from "@workspace-observer/node";
+ * import { gchatExpress } from "@gchat-notifier/node";
  * 
  * const app = express();
  * // ... routes
- * app.use(workspaceExpress()); // Must be after all routes
+ * app.use(gchatExpress()); // Must be after all routes
  * ```
  */
-export function workspaceExpress() {
-  return function workspaceErrorHandler(
+export function gchatExpress() {
+  return function gchatErrorHandler(
     err: Error,
     req: Request,
     _res: Response,
@@ -28,7 +28,7 @@ export function workspaceExpress() {
       scope.setTag("http.method", req.method);
       scope.setTag("http.url", req.originalUrl || req.url);
 
-      WorkspaceSDK.captureException(err, {
+      GChatNotifier.captureException(err, {
         method: req.method,
         url: req.originalUrl || req.url,
         ip: (req.ip || req.socket?.remoteAddress) ?? undefined,

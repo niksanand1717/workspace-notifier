@@ -31,7 +31,7 @@ export async function sendWebhook(
 
       if (debug) {
         console.error(
-          `[@workspace-observer] Webhook attempt ${attempt}/${MAX_RETRIES} failed:`,
+          `[@gchat-notifier] Webhook attempt ${attempt}/${MAX_RETRIES} failed:`,
           err.message
         );
       }

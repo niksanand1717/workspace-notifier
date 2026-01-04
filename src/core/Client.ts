@@ -7,11 +7,11 @@ import { buildLatencyCard } from "../cards/LatencyCard";
 import { createRateLimiter } from "../utils/rateLimit";
 import { hashError } from "../utils/hash";
 import type { Scope } from "./Scope";
-import type { WorkspaceEvent } from "../types/event";
+import type { GChatEvent } from "../types/event";
 
 const DEFAULT_MAX_EVENTS_PER_MINUTE = 30;
 
-export class WorkspaceSDK {
+export class GChatNotifier {
   private static options: SDKOptions;
   private static rateLimiter: ReturnType<typeof createRateLimiter>;
 
@@ -26,7 +26,7 @@ export class WorkspaceSDK {
     );
 
     if (options.debug) {
-      console.log("[@workspace-observer] Initialized", {
+      console.log("[@gchat-notifier] Initialized", {
         service: options.service,
         environment: options.environment,
       });
@@ -38,14 +38,14 @@ export class WorkspaceSDK {
    */
   static captureException(
     error: unknown,
-    request?: WorkspaceEvent["request"]
+    request?: GChatEvent["request"]
   ): void {
     if (!this.isInitialized()) return;
 
     // Rate limiting check
     if (!this.rateLimiter()) {
       if (this.options.debug) {
-        console.warn("[@workspace-observer] Rate limit exceeded, dropping event");
+        console.warn("[@gchat-notifier] Rate limit exceeded, dropping event");
       }
       return;
     }
@@ -54,7 +54,7 @@ export class WorkspaceSDK {
     if (!baseEvent) {
       if (this.options.debug) {
         console.warn(
-          "[@workspace-observer] Could not normalize error:",
+          "[@gchat-notifier] Could not normalize error:",
           typeof error
         );
       }
@@ -73,7 +73,7 @@ export class WorkspaceSDK {
 
     if (!this.rateLimiter()) return;
 
-    const event: WorkspaceEvent = {
+    const event: GChatEvent = {
       id: crypto.randomUUID(),
       timestamp: Date.now(),
       level: "latency",
@@ -86,13 +86,13 @@ export class WorkspaceSDK {
     this.processAndSend(event);
   }
 
-  private static processAndSend(baseEvent: WorkspaceEvent) {
+  private static processAndSend(baseEvent: GChatEvent) {
     const scope = GLOBAL_HUB.getScope();
 
     // Add fingerprint for deduplication
     const fingerprint = hashError(baseEvent.message + (baseEvent.error?.name ?? ""));
 
-    const event: WorkspaceEvent = {
+    const event: GChatEvent = {
       ...baseEvent,
       ...scope.serialize(),
       fingerprint,
@@ -101,10 +101,10 @@ export class WorkspaceSDK {
       ...(this.options.release && { release: this.options.release }),
     };
 
-    const processed = (this.options.beforeSend?.(event) ?? event) as WorkspaceEvent | null;
+    const processed = (this.options.beforeSend?.(event) ?? event) as GChatEvent | null;
     if (!processed) {
       if (this.options.debug) {
-        console.log("[@workspace-observer] Event dropped by beforeSend");
+        console.log("[@gchat-notifier] Event dropped by beforeSend");
       }
       return;
     }
@@ -119,7 +119,7 @@ export class WorkspaceSDK {
       (result) => {
         if (!result.success && this.options.debug) {
           console.error(
-            "[@workspace-observer] Failed to send webhook after retries:",
+            "[@gchat-notifier] Failed to send webhook after retries:",
             result.error?.message
           );
         }
@@ -140,7 +140,7 @@ export class WorkspaceSDK {
   static isInitialized(): boolean {
     if (!this.options) {
       console.warn(
-        "[@workspace-observer] SDK not initialized. Call WorkspaceSDK.init() first."
+        "[@gchat-notifier] SDK not initialized. Call GChatNotifier.init() first."
       );
       return false;
     }

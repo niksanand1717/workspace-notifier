@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/logo.png" width="200" alt="@workspace-observer/node logo">
+  <img src="assets/logo.png" width="200" alt="@gchat-notifier/node logo">
 </p>
 
-# @workspace-observer/node
+# @gchat-notifier/node
 
 Error capturing SDK for Node.js that sends notifications to Google Chat via webhook cards.
 
@@ -19,7 +19,7 @@ Error capturing SDK for Node.js that sends notifications to Google Chat via webh
 ## Installation
 
 ```bash
-npm install @workspace-observer/node
+npm install @gchat-notifier/node
 ```
 
 ## Quick Start
@@ -111,7 +111,7 @@ app.get("/", (req, res) => {
 });
 
 // Error handler - must be after all routes
-app.use(workspaceExpress());
+app.use(gchatExpress());
 
 app.listen(3000);
 ```
@@ -127,7 +127,7 @@ const fastify = Fastify();
 WorkspaceSDK.init({ webhookUrl: "..." });
 
 // Register the plugin
-await fastify.register(workspaceFastify);
+await fastify.register(gchatFastify);
 
 fastify.listen({ port: 3000 });
 ```
@@ -136,7 +136,7 @@ fastify.listen({ port: 3000 });
 
 ```typescript
 import { Module, APP_FILTER } from "@nestjs/core";
-import { WorkspaceSDK, WorkspaceExceptionFilter } from "@workspace-observer/node";
+import { GChatNotifier, GChatExceptionFilter } from "@gchat-notifier/node";
 
 WorkspaceSDK.init({ webhookUrl: "..." });
 
@@ -144,7 +144,7 @@ WorkspaceSDK.init({ webhookUrl: "..." });
   providers: [
     {
       provide: APP_FILTER,
-      useClass: WorkspaceExceptionFilter,
+      useClass: GChatExceptionFilter,
     },
   ],
 })

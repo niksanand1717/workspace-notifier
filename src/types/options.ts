@@ -1,4 +1,4 @@
-import { WorkspaceEvent } from "./event";
+import { GChatEvent } from "./event";
 
 export interface SDKOptions {
   /** Google Chat webhook URL (required) */
@@ -20,5 +20,5 @@ export interface SDKOptions {
   maxEventsPerMinute?: number;
 
   /** Transform or filter events before sending */
-  beforeSend?: (event: WorkspaceEvent) => WorkspaceEvent | null;
+  beforeSend?: (event: GChatEvent) => GChatEvent | null;
 }

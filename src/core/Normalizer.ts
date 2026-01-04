@@ -1,10 +1,10 @@
-import type { WorkspaceEvent } from "../types/event";
+import type { GChatEvent } from "../types/event";
 import { trimStack } from "../utils/stacktrace";
 
 export function normalizeError(
   error: unknown,
-  request?: WorkspaceEvent["request"]
-): WorkspaceEvent | null {
+  request?: GChatEvent["request"]
+): GChatEvent | null {
   if (!(error instanceof Error)) return null;
 
   const stack = trimStack(error.stack);

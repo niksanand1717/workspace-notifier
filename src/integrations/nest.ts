@@ -1,6 +1,6 @@
 import { Catch, ExceptionFilter, ArgumentsHost, HttpException } from "@nestjs/common";
 import type { Request } from "express";
-import { WorkspaceSDK } from "../core/Client";
+import { GChatNotifier } from "../core/Client";
 import { GLOBAL_HUB } from "../core/Hub";
 import { redactHeaders } from "../utils/redact";
 
@@ -10,19 +10,19 @@ import { redactHeaders } from "../utils/redact";
  * @example
  * ```typescript
  * import { APP_FILTER } from "@nestjs/core";
- * import { WorkspaceExceptionFilter } from "@workspace-observer/node";
+ * import { GChatExceptionFilter } from "@gchat-notifier/node";
  * 
  * @Module({
  *   providers: [{
  *     provide: APP_FILTER,
- *     useClass: WorkspaceExceptionFilter,
+ *     useClass: GChatExceptionFilter,
  *   }],
  * })
  * export class AppModule {}
  * ```
  */
 @Catch()
-export class WorkspaceExceptionFilter implements ExceptionFilter {
+export class GChatExceptionFilter implements ExceptionFilter {
   catch(exception: Error, host: ArgumentsHost): never {
     const ctx = host.switchToHttp();
     const request = ctx.getRequest<Request>();
@@ -39,7 +39,7 @@ export class WorkspaceExceptionFilter implements ExceptionFilter {
         scope.setTag("http.method", request.method);
         scope.setTag("http.url", request.originalUrl || request.url);
 
-        WorkspaceSDK.captureException(exception, {
+        GChatNotifier.captureException(exception, {
           method: request.method,
           url: request.originalUrl || request.url,
           ip: (request.ip || request.socket?.remoteAddress) ?? undefined,
@@ -48,7 +48,7 @@ export class WorkspaceExceptionFilter implements ExceptionFilter {
           body: request.body ? "[BODY PRESENT]" : undefined,
         });
       } else {
-        WorkspaceSDK.captureException(exception);
+        GChatNotifier.captureException(exception);
       }
     });
 

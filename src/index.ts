@@ -1,13 +1,13 @@
 // Core SDK
-export { WorkspaceSDK } from "./core/Client";
+export { GChatNotifier } from "./core/Client";
 export { Scope } from "./core/Scope";
 
 // Integrations
-export { workspaceExpress } from "./integrations/express";
-export { workspaceFastify } from "./integrations/fastify";
-export { WorkspaceExceptionFilter } from "./integrations/nest";
+export { gchatExpress } from "./integrations/express";
+export { gchatFastify } from "./integrations/fastify";
+export { GChatExceptionFilter } from "./integrations/nest";
 
 // Types
-export type { WorkspaceEvent, Severity } from "./types/event";
+export type { GChatEvent, Severity } from "./types/event";
 export type { SDKOptions } from "./types/options";
 export type { ErrorCardData, LatencyCardData } from "./cards/types";

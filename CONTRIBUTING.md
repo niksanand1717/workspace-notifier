@@ -1,4 +1,4 @@
-# Contributing to @workspace-observer/node
+# Contributing to @gchat-notifier/node
 
 Thank you for your interest in contributing! 🎉
 

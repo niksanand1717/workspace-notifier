@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync, FastifyRequest } from "fastify";
-import { WorkspaceSDK } from "../core/Client";
+import { GChatNotifier } from "../core/Client";
 import { GLOBAL_HUB } from "../core/Hub";
 import { redactHeaders } from "../utils/redact";
 
@@ -9,20 +9,20 @@ import { redactHeaders } from "../utils/redact";
  * @example
  * ```typescript
  * import Fastify from "fastify";
- * import { workspaceFastify } from "@workspace-observer/node";
+ * import { gchatFastify } from "@gchat-notifier/node";
  * 
  * const fastify = Fastify();
- * await fastify.register(workspaceFastify);
+ * await fastify.register(gchatFastify);
  * ```
  */
-export const workspaceFastify: FastifyPluginAsync = async (fastify) => {
+export const gchatFastify: FastifyPluginAsync = async (fastify) => {
   fastify.addHook("onError", (request: FastifyRequest, _reply, error, done) => {
     GLOBAL_HUB.run(() => {
       const scope = GLOBAL_HUB.getScope();
       scope.setTag("http.method", request.method);
       scope.setTag("http.url", request.url);
 
-      WorkspaceSDK.captureException(error, {
+      GChatNotifier.captureException(error, {
         method: request.method,
         url: request.url,
         ip: request.ip,

@@ -1,7 +1,7 @@
 {
-  "name": "@workspace-observer/node",
-  "version": "0.1.10",
-  "description": "Error capturing SDK for Node.js that sends notifications to Google Chat via webhook cards",
+  "name": "@gchat-notifier/node",
+  "version": "0.2.0",
+  "description": "Professional Google Chat notification SDK for Node.js. Capture errors and latency alerts via clean GChat Card webhooks.",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",

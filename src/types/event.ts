@@ -1,7 +1,7 @@
 import type { Severity } from "./severity";
 export type { Severity };
 
-export interface WorkspaceEvent {
+export interface GChatEvent {
   id: string;
   timestamp: number;
   level: Severity;

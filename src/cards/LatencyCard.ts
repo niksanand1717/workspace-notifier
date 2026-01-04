@@ -1,10 +1,10 @@
 import { CardBuilder } from "./CardBuilder";
-import type { WorkspaceEvent } from "../types/event";
+import type { GChatEvent } from "../types/event";
 
 /**
  * Builds a card optimized for Latency metrics
  */
-export function buildLatencyCard(event: WorkspaceEvent) {
+export function buildLatencyCard(event: GChatEvent) {
     const service = event.service ?? "unknown";
     const env = event.environment ?? "unknown";
 
