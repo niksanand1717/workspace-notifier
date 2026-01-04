@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" width="200" alt="@gchat-notifier/node logo">
+  <img src="https://raw.githubusercontent.com/niksanand1717/workspace-notifier/main/assets/logo.png" width="200" alt="@gchat-notifier/node logo">
 </p>
 
 # @gchat-notifier/node

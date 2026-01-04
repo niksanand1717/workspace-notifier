@@ -15,7 +15,6 @@
   },
   "files": [
     "dist",
-    "assets",
     "LICENSE",
     "README.md"
   ],
