@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2026-01-04
+
+### Added
+- **Visual Identity**: Integrated a brand new, premium 3D logo for `@gchat-notifier/node`.
+- **Packaging**: Ensured new branding is correctly bundled and displayed on NPM and GitHub.
+
 ## [0.6.0] - 2026-01-04
 
 ### Changed
