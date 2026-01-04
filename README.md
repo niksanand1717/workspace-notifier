@@ -26,9 +26,9 @@ npm install @gchat-notifier/node
 
 ### Error Capturing
 ```typescript
-import { WorkspaceSDK } from "@workspace-observer/node";
+import { GChatNotifier } from "@gchat-notifier/node";
 
-WorkspaceSDK.init({
+GChatNotifier.init({
   webhookUrl: "https://chat.googleapis.com/v1/spaces/...",
 });
 
@@ -36,7 +36,7 @@ WorkspaceSDK.init({
 try {
   throw new Error("API Timeout");
 } catch (error) {
-  WorkspaceSDK.captureException(error, {
+  GChatNotifier.captureException(error, {
     url: "/api/v1/data",
     method: "POST"
   });
@@ -45,7 +45,7 @@ try {
 
 ### Latency Monitoring
 ```typescript
-WorkspaceSDK.captureLatency({
+GChatNotifier.captureLatency({
   endpoint: "/api/v1/users",
   durationMs: 450,
   thresholdMs: 300 // Optional: shows threshold in the card
@@ -75,7 +75,7 @@ interface SDKOptions {
   maxEventsPerMinute?: number;
   
   /** Transform or filter events before sending */
-  beforeSend?: (event: WorkspaceEvent) => WorkspaceEvent | null;
+  beforeSend?: (event: GChatEvent) => GChatEvent | null;
 }
 ```
 
@@ -84,12 +84,12 @@ interface SDKOptions {
 Use `withScope` to add contextual information to captured events:
 
 ```typescript
-WorkspaceSDK.withScope((scope) => {
+GChatNotifier.withScope((scope) => {
   scope.setTag("userId", "12345");
   scope.setTag("feature", "checkout");
   scope.setExtra("cart", { items: 3, total: 99.99 });
   
-  WorkspaceSDK.captureException(error);
+  GChatNotifier.captureException(error);
 });
 ```
 
@@ -99,11 +99,11 @@ WorkspaceSDK.withScope((scope) => {
 
 ```typescript
 import express from "express";
-import { WorkspaceSDK, workspaceExpress } from "@workspace-observer/node";
+import { GChatNotifier, gchatExpress } from "@gchat-notifier/node";
 
 const app = express();
 
-WorkspaceSDK.init({ webhookUrl: "..." });
+GChatNotifier.init({ webhookUrl: "..." });
 
 // Your routes
 app.get("/", (req, res) => {
@@ -120,11 +120,11 @@ app.listen(3000);
 
 ```typescript
 import Fastify from "fastify";
-import { WorkspaceSDK, workspaceFastify } from "@workspace-observer/node";
+import { GChatNotifier, gchatFastify } from "@gchat-notifier/node";
 
 const fastify = Fastify();
 
-WorkspaceSDK.init({ webhookUrl: "..." });
+GChatNotifier.init({ webhookUrl: "..." });
 
 // Register the plugin
 await fastify.register(gchatFastify);
@@ -138,7 +138,7 @@ fastify.listen({ port: 3000 });
 import { Module, APP_FILTER } from "@nestjs/core";
 import { GChatNotifier, GChatExceptionFilter } from "@gchat-notifier/node";
 
-WorkspaceSDK.init({ webhookUrl: "..." });
+GChatNotifier.init({ webhookUrl: "..." });
 
 @Module({
   providers: [
@@ -156,7 +156,7 @@ export class AppModule {}
 Use `beforeSend` to filter or modify events before they're sent:
 
 ```typescript
-WorkspaceSDK.init({
+GChatNotifier.init({
   webhookUrl: "...",
   beforeSend: (event) => {
     // Don't send 404 errors
@@ -181,10 +181,10 @@ The package exports the following types for TypeScript users:
 
 ```typescript
 import type { 
-  WorkspaceEvent, 
+  GChatEvent, 
   SDKOptions, 
   Severity 
-} from "@workspace-observer/node";
+} from "@gchat-notifier/node";
 ```
 
 ## Contributing
