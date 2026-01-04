@@ -8,6 +8,13 @@ import { redactHeaders } from "../utils/redact";
  * NestJS exception filter that captures all exceptions and enriches them with request data.
  * 
  * @example
+ * **Global Filter (Application level):**
+ * ```typescript
+ * const app = await NestFactory.create(AppModule);
+ * app.useGlobalFilters(new GChatExceptionFilter());
+ * ```
+ * 
+ * **Provider level (Module level):**
  * ```typescript
  * import { APP_FILTER } from "@nestjs/core";
  * import { GChatExceptionFilter } from "@gchat-notifier/node";

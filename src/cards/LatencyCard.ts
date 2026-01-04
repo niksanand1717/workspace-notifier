@@ -2,7 +2,11 @@ import { CardBuilder } from "./CardBuilder";
 import type { GChatEvent } from "../types/event";
 
 /**
- * Builds a card optimized for Latency metrics
+ * Builds a Google Chat card payload optimized for latency and performance metrics.
+ * Highlights the endpoint, duration, and threshold breach details.
+ * 
+ * @param event - The GChatEvent containing latency metrics in its extra data
+ * @returns A structured GoogleChatCardV2 object
  */
 export function buildLatencyCard(event: GChatEvent) {
     const service = event.service ?? "unknown";

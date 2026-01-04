@@ -2,7 +2,11 @@ import { CardBuilder } from "./CardBuilder";
 import type { GChatEvent } from "../types/event";
 
 /**
- * Builds a card optimized for Error reporting
+ * Builds a Google Chat card payload optimized for error reporting.
+ * Includes a summary header, error details, request context (if available), and stack trace.
+ * 
+ * @param event - The GChatEvent to render
+ * @returns A structured GoogleChatCardV2 object
  */
 export function buildErrorCard(event: GChatEvent) {
   const service = event.service ?? "unknown";

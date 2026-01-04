@@ -4,15 +4,28 @@ import https from "node:https";
 const MAX_RETRIES = 3;
 const BASE_DELAY_MS = 500;
 
+/**
+ * Result of a transport operation.
+ */
 export interface TransportResult {
+  /** Whether the payload was successfully delivered. */
   success: boolean;
+  /** The error encountered if delivery failed. */
   error?: Error;
 }
 
 import type { GoogleChatCardV2 } from "../types/google-chat";
 
 /**
- * Send a webhook payload with retry logic
+ * Sends a Google Chat card payload to a webhook URL with exponential backoff retry logic.
+ * 
+ * @param webhookUrl - The Google Chat webhook URL
+ * @param payload - The card payload to send
+ * @param debug - Whether to log attempt failures to the console
+ * @returns A promise resolving to the transport result
+ * 
+ * @remarks
+ * This function will retry up to 3 times before giving up.
  */
 export async function sendWebhook(
   webhookUrl: string,

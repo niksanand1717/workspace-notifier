@@ -22,6 +22,12 @@ Error capturing SDK for Node.js that sends notifications to Google Chat via webh
 npm install @gchat-notifier/node
 ```
 
+- **Framework support**: Express, Fastify, and NestJS integrations built-in.
+- **Deduplication**: Error fingerprinting prevents message flooding.
+- **Security**: Automatic header redaction for sensitive data.
+
+[Read Full API Documentation →](https://niksanand1717.github.io/workspace-notifie)
+
 ## Quick Start
 
 ### Error Capturing
