@@ -63,13 +63,13 @@
   ],
   "author": "Niks",
   "license": "MIT",
-  "homepage": "https://niksanand1717.github.io/workspace-notifie",
+  "homepage": "https://niksanand1717.github.io/workspace-notifier",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/niksanand1717/workspace-notifier.git"
+    "url": "git+https://github.com/niksanand1717/workspace-notifierr.git"
   },
   "bugs": {
-    "url": "https://github.com/niksanand1717/workspace-notifier/issues"
+    "url": "https://github.com/niksanand1717/workspace-notifierr/issues"
   },
   "engines": {
     "node": ">=18"
