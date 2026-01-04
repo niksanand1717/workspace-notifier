@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/niksanand1717/workspace-notifierr/main/assets/logo.png" width="200" alt="@gchat-notifier/node logo">
+  <img src="https://raw.githubusercontent.com/niksanand1717/workspace-notifier/main/assets/logo.png" width="200" alt="@gchat-notifier/node logo">
 </p>
 
 # @gchat-notifier/node
@@ -26,7 +26,7 @@ npm install @gchat-notifier/node
 - **Deduplication**: Error fingerprinting prevents message flooding.
 - **Security**: Automatic header redaction for sensitive data.
 
-[Read Full API Documentation →](https://niksanand1717.github.io/workspace-notifierr)
+[Read Full API Documentation →](https://niksanand1717.github.io/workspace-notifier)
 
 ## Quick Start
 

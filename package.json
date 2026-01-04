@@ -66,10 +66,10 @@
   "homepage": "https://niksanand1717.github.io/workspace-notifier",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/niksanand1717/workspace-notifierr.git"
+    "url": "git+https://github.com/niksanand1717/workspace-notifier.git"
   },
   "bugs": {
-    "url": "https://github.com/niksanand1717/workspace-notifierr/issues"
+    "url": "https://github.com/niksanand1717/workspace-notifier/issues"
   },
   "engines": {
     "node": ">=18"
