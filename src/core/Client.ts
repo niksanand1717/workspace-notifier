@@ -11,12 +11,23 @@ import type { GChatEvent } from "../types/event";
 
 const DEFAULT_MAX_EVENTS_PER_MINUTE = 30;
 
+/**
+ * Core SDK class for GChat Notifier.
+ * Provide initialization and methods to capture exceptions and latency metrics.
+ */
 export class GChatNotifier {
   private static options: SDKOptions;
   private static rateLimiter: ReturnType<typeof createRateLimiter>;
 
   /**
-   * Initialize the SDK with configuration options
+   * Initialize the SDK with configuration options.
+   * This must be called before any other methods.
+   * 
+   * @param options - Configuration options for the SDK
+   * @example
+   * ```ts
+   * GChatNotifier.init({ webhookUrl: '...' });
+   * ```
    */
   static init(options: SDKOptions): void {
     this.options = options;
@@ -34,7 +45,10 @@ export class GChatNotifier {
   }
 
   /**
-   * Capture and report an exception
+   * Capture and report an exception to Google Chat.
+   * 
+   * @param error - The error to capture (can be an Error instance or any unknown value)
+   * @param request - Optional request context to include in the report
    */
   static captureException(
     error: unknown,
@@ -65,8 +79,13 @@ export class GChatNotifier {
   }
 
   /**
-   * Capture and report latency metrics
-   * @param data Metrics data including endpoint and duration
+   * Capture and report latency metrics to Google Chat.
+   * 
+   * @param data - Metrics data including endpoint, duration, and optional threshold
+   * @example
+   * ```ts
+   * GChatNotifier.captureLatency({ endpoint: '/api/v1', durationMs: 450, thresholdMs: 300 });
+   * ```
    */
   static captureLatency(data: { endpoint: string; durationMs: number; thresholdMs?: number }): void {
     if (!this.isInitialized()) return;
@@ -128,7 +147,11 @@ export class GChatNotifier {
   }
 
   /**
-   * Run a function with an isolated scope for adding context
+   * Run a function with an isolated scope for adding context.
+   * Any tags or extra data set within the callback will only apply to events
+   * captured inside that callback.
+   * 
+   * @param fn - Callback function that receives a Scope instance
    */
   static withScope(fn: (scope: Scope) => void): void {
     GLOBAL_HUB.run(() => fn(GLOBAL_HUB.getScope()));

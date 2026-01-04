@@ -14,6 +14,7 @@ import { redactHeaders } from "../utils/redact";
  * const fastify = Fastify();
  * await fastify.register(gchatFastify);
  * ```
+ * @returns A Fastify plugin that registers the error hook
  */
 export const gchatFastify: FastifyPluginAsync = async (fastify) => {
   fastify.addHook("onError", (request: FastifyRequest, _reply, error, done) => {

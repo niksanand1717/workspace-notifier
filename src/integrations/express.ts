@@ -15,6 +15,7 @@ import { redactHeaders } from "../utils/redact";
  * // ... routes
  * app.use(gchatExpress()); // Must be after all routes
  * ```
+ * @returns An Express error handling middleware function
  */
 export function gchatExpress() {
   return function gchatErrorHandler(

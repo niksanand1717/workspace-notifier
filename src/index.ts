@@ -9,5 +9,6 @@ export { GChatExceptionFilter } from "./integrations/nest";
 
 // Types
 export type { GChatEvent, Severity } from "./types/event";
+export type { ScopeData } from "./types/scope";
 export type { SDKOptions } from "./types/options";
 export type { ErrorCardData, LatencyCardData } from "./cards/types";

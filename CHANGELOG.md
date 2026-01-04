@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2026-01-04
+
+### Added
+- **Documentation**: Integrated TSDoc and TypeDoc for professional, automated API documentation.
+- **API**: Standardized all public method and interface comments.
+- **Workflow**: Added `npm run docs` script to generate documentation site.
+- **Exports**: Added `ScopeData` to public exports.
+
+## [0.7.18] - 2026-01-04
+
+### Optimized
+- **Package Size**: Reduced unpacked size by ~370KB (~75%) by serving the logo via GitHub CDN instead of bundling it.
+
 ## [0.7.1] - 2026-01-04
 
 ### Fixed

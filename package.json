@@ -20,6 +20,7 @@
   ],
   "scripts": {
     "build": "tsup",
+    "docs": "typedoc",
     "dev": "tsup --watch",
     "test": "node --import tsx --test 'src/**/*.test.ts'",
     "release": "npm run release-patch",
@@ -81,6 +82,7 @@
     "reflect-metadata": "^0.2.2",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
+    "typedoc": "^0.28.15",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

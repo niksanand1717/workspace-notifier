@@ -20,6 +20,9 @@ import { redactHeaders } from "../utils/redact";
  * })
  * export class AppModule {}
  * ```
+ * @remarks
+ * This filter re-throws the exception after capturing it to allow NestJS
+ * to handle the final response to the client.
  */
 @Catch()
 export class GChatExceptionFilter implements ExceptionFilter {
