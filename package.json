@@ -1,6 +1,6 @@
 {
   "name": "@gchat-notifier/node",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Professional Google Chat notification SDK for Node.js. Capture errors and latency alerts via clean GChat Card webhooks.",
   "type": "module",
   "main": "dist/index.cjs",
