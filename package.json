@@ -23,9 +23,9 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "node --import tsx --test 'src/**/*.test.ts'",
-    "publish-patch": "npm version patch && npm publish",
-    "publish-minor": "npm version minor && npm publish",
-    "publish-major": "npm version major && npm publish",
+    "publish-patch": "npm version patch && npm publish --access public",
+    "publish-minor": "npm version minor && npm publish --access public",
+    "publish-major": "npm version major && npm publish --access public",
     "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [
