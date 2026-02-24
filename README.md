@@ -36,6 +36,7 @@ import { GChatNotifier } from "@gchat-notifier/node";
 
 GChatNotifier.init({
   webhookUrl: "https://chat.googleapis.com/v1/spaces/...",
+  appLogoUrl: "https://example.com/logo.png",
 });
 
 // Capture an error with optional request context
@@ -64,6 +65,9 @@ GChatNotifier.captureLatency({
 interface SDKOptions {
   /** Google Chat webhook URL (required) */
   webhookUrl: string;
+  
+  /** Application logo URL shown in notification cards */
+  appLogoUrl?: string;
   
   /** Service/application name */
   service?: string;
