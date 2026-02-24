@@ -1,5 +1,6 @@
 import { CardBuilder } from "./CardBuilder";
 import type { GChatEvent } from "../types/event";
+import { SDKOptions } from "../types/options";
 
 /**
  * Builds a Google Chat card payload optimized for error reporting.
@@ -8,15 +9,17 @@ import type { GChatEvent } from "../types/event";
  * @param event - The GChatEvent to render
  * @returns A structured GoogleChatCardV2 object
  */
-export function buildErrorCard(event: GChatEvent) {
+export function buildErrorCard(event: GChatEvent, options: SDKOptions) {
   const service = event.service ?? "unknown";
   const env = event.environment ?? "unknown";
+  const appLogoUrl = options.appLogoUrl ?? "https://raw.githubusercontent.com/niksanand1717/workspace-notifier/main/assets/logo.png";
 
   const builder = new CardBuilder()
     .setHeader({
       title: "🚨 Error Captured",
       subtitle: `${service} • ${env}`,
       imageType: "CIRCLE",
+      imageUrl: appLogoUrl,
     })
     .addSection()
     .addDecoratedText({

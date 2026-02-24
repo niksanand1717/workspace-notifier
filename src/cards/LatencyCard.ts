@@ -1,5 +1,6 @@
 import { CardBuilder } from "./CardBuilder";
 import type { GChatEvent } from "../types/event";
+import { SDKOptions } from "../types/options";
 
 /**
  * Builds a Google Chat card payload optimized for latency and performance metrics.
@@ -8,9 +9,10 @@ import type { GChatEvent } from "../types/event";
  * @param event - The GChatEvent containing latency metrics in its extra data
  * @returns A structured GoogleChatCardV2 object
  */
-export function buildLatencyCard(event: GChatEvent) {
+export function buildLatencyCard(event: GChatEvent, options: SDKOptions) {
     const service = event.service ?? "unknown";
     const env = event.environment ?? "unknown";
+    const appLogoUrl = options.appLogoUrl ?? "https://raw.githubusercontent.com/niksanand1717/workspace-notifier/main/assets/logo.png";
 
     // Extract duration from extra if available
     const duration = event.extra?.["durationMs"] as number | undefined;
@@ -21,6 +23,7 @@ export function buildLatencyCard(event: GChatEvent) {
         .setHeader({
             title: "⏱️ Latency Alert",
             subtitle: `${service} • ${env}`,
+            imageUrl: appLogoUrl,
         })
         .addSection("Performance Metric")
         .addDecoratedText({

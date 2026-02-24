@@ -7,6 +7,9 @@ export interface SDKOptions {
   /** Google Chat webhook URL (required) */
   webhookUrl: string;
 
+  /** Application Logo URL */
+  appLogoUrl?: string;
+
   /** 
    * Service or application name.
    * Used as a prefix or field in the notification card.

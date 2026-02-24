@@ -75,7 +75,7 @@ export class GChatNotifier {
       return;
     }
 
-    this.processAndSend(baseEvent);
+    this.processAndSend(baseEvent, this.options);
   }
 
   /**
@@ -102,10 +102,10 @@ export class GChatNotifier {
       },
     };
 
-    this.processAndSend(event);
+    this.processAndSend(event, this.options);
   }
 
-  private static processAndSend(baseEvent: GChatEvent) {
+  private static processAndSend(baseEvent: GChatEvent, options: SDKOptions) {
     const scope = GLOBAL_HUB.getScope();
 
     // Add fingerprint for deduplication
@@ -130,8 +130,8 @@ export class GChatNotifier {
 
     // Choose card builder based on severity
     const card = processed.level === "latency"
-      ? buildLatencyCard(processed)
-      : buildErrorCard(processed);
+      ? buildLatencyCard(processed, this.options)
+      : buildErrorCard(processed, this.options);
 
     // Fire and forget, handle errors gracefully
     sendWebhook(this.options.webhookUrl, card, this.options.debug).then(
